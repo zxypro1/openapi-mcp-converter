@@ -26,13 +26,13 @@ A tool for automatically converting OpenAPI specifications into server implement
 Install the package:
 
 ```bash
-npm install react-openapi-mcp-converter
+npm install openapi-mcp-converter
 ```
 
 Run a local stdio MCP server:
 
 ```typescript
-import { OpenApiMCPSeverConverter } from "react-openapi-mcp-converter";
+import { OpenApiMCPSeverConverter } from "openapi-mcp-converter";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import fs from "fs";
 

@@ -1,6 +1,6 @@
 {
-  "name": "react-openapi-mcp-converter",
-  "version": "0.0.4",
+  "name": "openapi-mcp-converter",
+  "version": "0.0.1",
   "description": "Convert OpenAPI specs to MCP server",
   "license": "MIT",
   "author": "zxypro1",

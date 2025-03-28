@@ -26,13 +26,13 @@
 安装包：
 
 ```bash
-npm install react-openapi-mcp-converter
+npm install openapi-mcp-converter
 ```
 
 跑一个本地 STDIO MCP 服务：import { OpenApiMCPSeverConverter } from "react-openapi-mcp-converter";
 
 ```typescript
-import { OpenApiMCPSeverConverter } from "react-openapi-mcp-converter";
+import { OpenApiMCPSeverConverter } from "openapi-mcp-converter";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import fs from "fs";
 
