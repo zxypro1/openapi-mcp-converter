@@ -4,14 +4,12 @@
 [![TypeScript Version](https://img.shields.io/badge/typescript-5.x-blue)](https://www.typescriptlang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-将OpenAPI规范自动转换为符合Model Context Protocol（MCP）的服务端实现工具
+将 OpenAPI 规范自动转换为 Model Context Protocol（MCP）服务实例
 
 ## 功能特性
 
-- 🚀 **自动化转换**：自动解析OpenAPI 3.0规范
-- 🔧 **工具链生成**：动态创建MCP兼容的ToolCall对象
-- 🌐 **服务端集成**：内置符合MCP规范的HTTP服务
-- 🛠 **类型安全**：基于TypeScript的强类型校验
+- 🚀 **自动化转换**：自动解析 OpenAPI 3.0 规范
+- 🛠 **类型安全**：基于 TypeScript 的强类型校验
 - 🔄 **请求代理**：自动处理工具调用参数映射
 
 ## 快速开始

@@ -4,13 +4,11 @@
 [![TypeScript Version](https://img.shields.io/badge/typescript-5.x-blue)](https://www.typescriptlang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A tool for automatically converting OpenAPI specifications into server implementations compliant with the Model Context Protocol (MCP)
+A tool for automatically converting OpenAPI specifications into Model Context Protocol (MCP) server instance
 
 ## Features
 
 - 🚀 **Automated Conversion**: Auto-parses OpenAPI 3.0 specifications
-- 🔧 **Toolchain Generation**: Dynamically creates MCP-compatible ToolCall objects
-- 🌐 **Server Integration**: Built-in MCP-compliant HTTP service
 - 🛠 **Type Safety**: TypeScript-based strong type validation
 - 🔄 **Request Proxy**: Automatically handles tool call parameter mapping
 
