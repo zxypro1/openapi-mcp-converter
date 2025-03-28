@@ -4,32 +4,32 @@
 [![TypeScript Version](https://img.shields.io/badge/typescript-5.x-blue)](https://www.typescriptlang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A tool for automatically converting OpenAPI specifications into server implementations compliant with the Model Context Protocol (MCP)
+将OpenAPI规范自动转换为符合Model Context Protocol（MCP）的服务端实现工具
 
-## Features
+## 功能特性
 
-- 🚀 **Automated Conversion**: Auto-parses OpenAPI 3.0 specifications
-- 🔧 **Toolchain Generation**: Dynamically creates MCP-compatible ToolCall objects
-- 🌐 **Server Integration**: Built-in MCP-compliant HTTP service
-- 🛠 **Type Safety**: TypeScript-based strong type validation
-- 🔄 **Request Proxy**: Automatically handles tool call parameter mapping
+- 🚀 **自动化转换**：自动解析OpenAPI 3.0规范
+- 🔧 **工具链生成**：动态创建MCP兼容的ToolCall对象
+- 🌐 **服务端集成**：内置符合MCP规范的HTTP服务
+- 🛠 **类型安全**：基于TypeScript的强类型校验
+- 🔄 **请求代理**：自动处理工具调用参数映射
 
-## Quick Start
+## 快速开始
 
-### Prerequisites
+### 前置条件
 
 - Node.js 18+
 - TypeScript 5.x
 
-### Basic Usage
+### 基础用法
 
-Install the package:
+安装包：
 
 ```bash
 npm install react-openapi-mcp-converter
 ```
 
-Run a local stdio MCP server:
+跑一个本地 STDIO MCP 服务：
 
 ```typescript
 import fs from "fs";
@@ -38,7 +38,7 @@ const openApiDoc = JSON.parse(fs.readFileSync("./openapi.json"));
 const converter = new OpenApiMCPSeverConverter(openApiDoc);
 const server = converter.getServer();
 
-// Start MCP service
+// 启动MCP服务
 async function runServer() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
@@ -51,29 +51,29 @@ runServer().catch((error) => {
 });
 ```
 
-### Run Examples
+### 运行示例
 
 ```bash
-npm test  # Execute sample test cases
+npm test  # 执行示例测试用例
 ```
 
-## Development Guide
+## 开发指南
 
-### Project Structure
+### 项目结构
 
 ```
 /openapi-to-mcp
-├── dist/            # Compiled output
-├── src/             # Source code
-│   ├── example/     # Example configurations
-│   └── index.ts     # Core implementation
+├── dist/            # 编译输出
+├── src/             # 源代码
+│   ├── example/     # 示例配置
+│   └── index.ts     # 核心实现
 ├── package.json
 └── tsconfig.json
 ```
 
-### Build Commands
+### 构建命令
 
 ```bash
-npm run build    # Production build
-npm run watch    # Development mode watch
+npm run build    # 生产环境构建
+npm run watch    # 开发模式监听
 ```

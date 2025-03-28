@@ -1,0 +1,166 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "v3",
+    "title": "Text2Image API"
+  },
+  "servers": [
+    {
+      "url": "https://dashscope.aliyuncs.com"
+    }
+  ],
+  "paths": {
+    "/api/v1/services/aigc/text2image/image-synthesis": {
+      "post": {
+        "operationId": "imageSynthesis",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "model": {
+                    "type": "string",
+                    "enum": [
+                      "wanx-lite"
+                    ],
+                    "description": "模型名称，这里是固定值 wanx-lite"
+                  },
+                  "input": {
+                    "type": "object",
+                    "properties": {
+                      "prompt": {
+                        "type": "string",
+                        "maxLength": 500,
+                        "description": "描述画面的提示词信息，支持中英文，长度不超过500个字符，必填"
+                      },
+                      "negative_prompt": {
+                        "type": "string",
+                        "maxLength": 500,
+                        "nullable": true,
+                        "description": "画面中不想出现的内容描述词信息，支持中英文，长度不超过500个字符，可不填"
+                      }
+                    }
+                  },
+                  "parameters": {
+                    "type": "object",
+                    "properties": {
+                      "style": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "输出图像的风格，仅支持以下风格：默认参数为\"<auto>\"，若为3D卡通风格，输入参数\"<3d cartoon>\"，若为动画风格，输入参数\"<anime>\"。以下风格输入参数以此类推，油画：\"<oil painting>\", 水彩：\"<watercolor>\", 素描：\"<sketch>\", 中国画：\"<chinese painting>\", 扁平插画：\"<flat illustration>\"",
+                        "enum": [
+                          "<auto>",
+                          "<3d cartoon>",
+                          "<anime>",
+                          "<oil painting>",
+                          "<watercolor>",
+                          "<sketch>",
+                          "<chinese painting>",
+                          "<flat illustration>"
+                        ]
+                      },
+                      "size": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "生成图像的分辨率，默认为\"1024*1024\"",
+                        "enum": [
+                          "1024*1024",
+                          "720*1280",
+                          "1280*720"
+                        ],
+                        "example": "1024*1024"
+                      },
+                      "n": {
+                        "type": "integer",
+                        "description": "本次请求生成的图片数量，支持1~4张，默认1张",
+                        "nullable": true,
+                        "minimum": 1,
+                        "maximum": 4,
+                        "example": 1
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "request_id": {
+                      "type": "string",
+                      "description": "本次请求的系统唯一码"
+                    },
+                    "output": {
+                      "type": "object",
+                      "properties": {
+                        "task_id": {
+                          "type": "string",
+                          "description": "本次请求的任务的作业 id"
+                        },
+                        "task_status": {
+                          "type": "string",
+                          "enum": [
+                            "PENDING",
+                            "RUNNING",
+                            "SUCCEEDED",
+                            "FAILED",
+                            "UNKNOWN"
+                          ],
+                          "description": "本次请求的任务的作业状态"
+                        },
+                        "task_metrics": {
+                          "type": "object",
+                          "properties": {
+                            "TOTAL": {
+                              "type": "integer"
+                            },
+                            "SUCCEEDED": {
+                              "type": "integer"
+                            },
+                            "FAILED": {
+                              "type": "integer"
+                            }
+                          }
+                        },
+                        "results": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "type": "string",
+                                "description": "图片的URL地址"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "usage": {
+                      "type": "object",
+                      "properties": {
+                        "image_count": {
+                          "type": "integer",
+                          "description": "本次请求成功生成的图片张数"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
