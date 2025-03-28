@@ -32,6 +32,7 @@ npm install react-openapi-mcp-converter
 Run a local stdio MCP server:
 
 ```typescript
+import { OpenApiMCPSeverConverter } from "react-openapi-mcp-converter";
 import fs from "fs";
 
 const openApiDoc = JSON.parse(fs.readFileSync("./openapi.json"));

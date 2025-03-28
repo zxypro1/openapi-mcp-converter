@@ -32,6 +32,7 @@ npm install react-openapi-mcp-converter
 跑一个本地 STDIO MCP 服务：
 
 ```typescript
+import { OpenApiMCPSeverConverter } from "react-openapi-mcp-converter";
 import fs from "fs";
 
 const openApiDoc = JSON.parse(fs.readFileSync("./openapi.json"));
