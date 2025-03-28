@@ -1,6 +1,6 @@
 {
   "name": "openapi-mcp-converter",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Convert OpenAPI specs to MCP server",
   "license": "MIT",
   "author": "zxypro1",
@@ -18,7 +18,8 @@
     "model-context-protocol",
     "converter",
     "ai",
-    "llm"
+    "llm",
+    "node"
   ],
   "type": "module",
   "bin": {
