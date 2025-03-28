@@ -29,27 +29,29 @@
 npm install react-openapi-mcp-converter
 ```
 
-跑一个本地 STDIO MCP 服务：
+跑一个本地 STDIO MCP 服务：import { OpenApiMCPSeverConverter } from "react-openapi-mcp-converter";
 
 ```typescript
 import { OpenApiMCPSeverConverter } from "react-openapi-mcp-converter";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import fs from "fs";
 
 const openApiDoc = JSON.parse(fs.readFileSync("./openapi.json"));
 const converter = new OpenApiMCPSeverConverter(openApiDoc);
 const server = converter.getServer();
 
-// 启动MCP服务
+// Start MCP service
 async function runServer() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.error("GitHub MCP Server running on stdio");
+  console.log("GitHub MCP Server running on stdio");
 }
 
 runServer().catch((error) => {
   console.error("Fatal error in main():", error);
   process.exit(1);
 });
+
 ```
 
 ### 运行示例

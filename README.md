@@ -33,6 +33,7 @@ Run a local stdio MCP server:
 
 ```typescript
 import { OpenApiMCPSeverConverter } from "react-openapi-mcp-converter";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import fs from "fs";
 
 const openApiDoc = JSON.parse(fs.readFileSync("./openapi.json"));
@@ -43,7 +44,7 @@ const server = converter.getServer();
 async function runServer() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.error("GitHub MCP Server running on stdio");
+  console.log("GitHub MCP Server running on stdio");
 }
 
 runServer().catch((error) => {
