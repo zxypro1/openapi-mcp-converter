@@ -54,7 +54,7 @@ runServer().catch((error) => {
 ### Run Examples
 
 ```bash
-npm test  # Execute sample test cases
+npm run test  # Execute sample test cases
 ```
 
 ## Development Guide
