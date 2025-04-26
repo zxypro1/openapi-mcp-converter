@@ -30,15 +30,18 @@ npm install openapi-mcp-converter
 Run a local stdio MCP server:
 
 ```typescript
-import { OpenApiMCPSeverConverter } from "openapi-mcp-converter";
-import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import fs from "fs";
+import fs from 'fs';
+import { OpenApiMCPSeverConverter } from '../index.js';
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-const openApiDoc = JSON.parse(fs.readFileSync("./openapi.json"));
-const converter = new OpenApiMCPSeverConverter(openApiDoc);
+const openApiDoc = JSON.parse(fs.readFileSync(path.join(path.dirname(fileURLToPath(import.meta.url)), 'openapi.json'), 'utf8'));
+
+const converter = new OpenApiMCPSeverConverter(openApiDoc, { timeout: 100000 });
 const server = converter.getServer();
-
-// Start MCP service
+console.log(JSON.stringify(converter.getMcpTools(), null, 2));
+console.log(JSON.stringify(converter.getTools(), null, 2));
 async function runServer() {
   const transport = new StdioServerTransport();
   await server.connect(transport);

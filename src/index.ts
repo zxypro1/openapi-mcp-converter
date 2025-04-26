@@ -15,12 +15,16 @@ interface ToolCall {
   description: string;
 }
 
+interface Options {
+  timeout?: number;
+}
+
 export class OpenApiMCPSeverConverter {
   private tools: ToolCall[];
   private mcpTools: any[];
   private server: Server;
 
-  constructor(private openApiDoc: OpenAPIV3.Document) {
+  constructor(private openApiDoc: OpenAPIV3.Document, private options?: Options) {
     this.tools = this.analyzeOpenApiSchema();
     this.mcpTools = this.createMcpTools();
     this.server = this.initializeServer();
@@ -28,6 +32,14 @@ export class OpenApiMCPSeverConverter {
 
   public getServer(): Server {
     return this.server;
+  }
+
+  public getMcpTools(): any[] {
+    return this.mcpTools;
+  }
+
+  public getTools(): ToolCall[] {
+    return this.tools;
   }
 
   private initializeServer(): Server {
@@ -51,11 +63,13 @@ export class OpenApiMCPSeverConverter {
           url: tool.url,
           data: request.params.arguments?.body || undefined,
           params: request.params.arguments?.query || undefined,
-          headers: request.params.arguments?.header || undefined
+          headers: request.params.arguments?.header || undefined,
+          // default timeout is 60 seconds
+          timeout: this.options?.timeout || 60000,
         });
 
         return {
-          content: [{ type: "text", text: `${result.data}` }],
+          content: [{ type: "text", text: JSON.stringify(result.data) }],
           isError: false
         };
       } catch (error) {
@@ -181,12 +195,3 @@ export class OpenApiMCPSeverConverter {
     return schema;
   }
 }
-
-// 使用示例
-// import fs from "fs";
-// const openApiDoc = JSON.parse(fs.readFileSync("petstore.json", "utf8"));
-// const server = new OpenAPIServer(openApiDoc);
-// server.start().catch(error => {
-//   console.error("Server startup failed:", error);
-//   process.exit(1);
-// });
