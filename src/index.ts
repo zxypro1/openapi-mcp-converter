@@ -268,6 +268,7 @@ export class OpenApiMCPSeverConverter {
       const location = param.in === "cookie" ? "header" : param.in;
       if (!["path", "query", "header"].includes(location)) return;
       const target = schema.properties![location] as JSONSchema;
+      if (!target.properties) target.properties = {};
       target.properties![param.name] = param.schema as JSONSchema;
       if (param.required) (target.required ??= []).push(param.name);
     });
