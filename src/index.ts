@@ -73,18 +73,52 @@ export class OpenApiMCPSeverConverter {
           this.resolveSecurityParameters(tool);
         const authHeaders = this.handleAuthSchemes(tool);
 
+        const normalizeParam = (param: any): object => {
+          if (typeof param !== "object" || param === null) {
+            try {
+              return JSON.parse(param); // 尝试解析字符串
+            } catch {
+              return { value: param }; // 基础类型包裹成对象
+            }
+          }
+          return param;
+        };
+
+        const bodyParam = request.params.arguments?.body
+          ? normalizeParam(request.params.arguments.body)
+          : undefined;
+
+        const queryParams = normalizeParam(
+          request.params.arguments?.query || {}
+        );
+        const headerParams = normalizeParam(
+          request.params.arguments?.header || {}
+        );
+        const pathParams = normalizeParam(
+          request.params.arguments?.path || {}
+        ) as Record<string, any>;
+
+        // 替换URL中的路径参数
+        const resolvedUrl = tool.url.replace(/{([^}]+)}/g, (_, key) => {
+          const value = pathParams[key];
+          if (typeof value === "undefined") {
+            throw new Error(`Missing required path parameter: ${key}`);
+          }
+          return encodeURIComponent(value);
+        });
+
         const result = await axios.request({
           method: tool.method,
-          url: this.buildSecureUrl(tool.url, securityQuery),
-          data: request.params.arguments?.body,
-          params: { 
+          url: this.buildSecureUrl(resolvedUrl, securityQuery), // 使用处理后的URL
+          data: bodyParam,
+          params: {
             ...(securityQuery || {}),
-            ...(request.params.arguments?.query || {}) 
+            ...queryParams,
           },
           headers: {
             ...securityHeaders,
             ...authHeaders,
-            ...(request.params.arguments?.header || {}),
+            ...headerParams,
           },
           timeout: this.options?.timeout || 60000,
         });
@@ -181,7 +215,10 @@ export class OpenApiMCPSeverConverter {
     const query: Record<string, string> = {};
 
     tool.securitySchemes?.forEach((scheme) => {
-      const value = this.options?.security?.[scheme.type === 'http' ? scheme.scheme : scheme.type];
+      const value =
+        this.options?.security?.[
+          scheme.type === "http" ? scheme.scheme : scheme.type
+        ];
       if (!value) return;
 
       switch (scheme.type) {
@@ -203,7 +240,10 @@ export class OpenApiMCPSeverConverter {
   private handleAuthSchemes(tool: ToolCall): Record<string, string> {
     const headers: Record<string, string> = {};
     tool.securitySchemes?.forEach((scheme) => {
-      const value = this.options?.security?.[scheme.type === 'http' ? scheme.scheme : scheme.type];
+      const value =
+        this.options?.security?.[
+          scheme.type === "http" ? scheme.scheme : scheme.type
+        ];
       if (scheme.type === "oauth2" && value) {
         headers.Authorization = `Bearer ${value}`;
       }

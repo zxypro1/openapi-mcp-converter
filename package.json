@@ -1,6 +1,6 @@
 {
   "name": "openapi-mcp-converter",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Convert OpenAPI specs to MCP server",
   "license": "MIT",
   "author": "zxypro1",
