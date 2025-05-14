@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/zxypro1-openapi-to-mcp-converter-badge.png)](https://mseep.ai/app/zxypro1-openapi-to-mcp-converter)
+
 # OpenAPI to MCP Server Converter
 
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.x-brightgreen)](https://nodejs.org/)
